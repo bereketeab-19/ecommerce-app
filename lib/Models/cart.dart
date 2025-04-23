@@ -29,7 +29,7 @@ class Cart extends ChangeNotifier {
     ),
   ];
 
-  List<Shop> _cartItem = [];
+  final List<Shop> _cartItem = [];
 
   List<Shop> get cartItem => _cartItem;
 

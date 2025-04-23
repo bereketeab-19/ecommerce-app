@@ -25,7 +25,7 @@ class AuthServices {
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
-        print('This account is already registered with a different method.');
+        // print('This account is already registered with a different method.');
       }
       rethrow;
     }

@@ -31,7 +31,9 @@ class MyDrawer extends StatelessWidget {
               TextButton(
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
-                  Navigator.pop(context);
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                  }
                 },
                 child: Text(
                   'Yes',
