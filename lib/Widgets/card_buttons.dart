@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Buttons extends StatelessWidget {
-  const Buttons({
+class CardButtons extends StatelessWidget {
+  const CardButtons({
     super.key,
     required this.onTap,
     required this.child,

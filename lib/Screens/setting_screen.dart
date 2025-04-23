@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_shop/Themes/theme_provider.dart';
+import '../Themes/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class SettingScreen extends StatelessWidget {

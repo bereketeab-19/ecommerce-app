@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "315155634661",
+    "project_id": "ecommerce-app-d2182",
+    "storage_bucket": "ecommerce-app-d2182.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315155634661:android:0a439b565c52f2460c370c",
+        "android_client_info": {
+          "package_name": "com.example.minimal_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315155634661-5cpbr9rqtm45e582gh463kkaes0r0u5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIEA0jmz2wNrcB-1uMo1RwLTSJ-5q1OPo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315155634661-5cpbr9rqtm45e582gh463kkaes0r0u5h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "315155634661-f54ihllkcjr20a6e625o5181io1n2uc9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.minimalShop"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,10 +1,49 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:minimal_shop/Screens/cart_screen.dart';
-import 'package:minimal_shop/Screens/intro_screen.dart';
-import 'package:minimal_shop/Screens/setting_screen.dart';
+import '../Screens/cart_screen.dart';
+import '../Screens/setting_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
+  void signUserOut(BuildContext context) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (context) => AlertDialog(
+            shape: RoundedRectangleBorder(),
+            content: Text(
+              'Are you sure you want to Logout?',
+              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'No',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Yes',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+              ),
+            ],
+          ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,16 +140,14 @@ class MyDrawer extends StatelessWidget {
             Spacer(),
             ListTile(
               onTap: () {
-                Navigator.of(
-                  context,
-                ).push(MaterialPageRoute(builder: (context) => IntroScreen()));
+                signUserOut(context);
               },
               leading: Icon(
                 Icons.exit_to_app,
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
               title: Text(
-                "Exit",
+                "Logout",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onSecondary,
                   letterSpacing: 5,

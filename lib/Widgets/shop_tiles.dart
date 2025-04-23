@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_shop/Models/shop.dart';
-import 'package:minimal_shop/Widgets/buttons.dart';
+import '../Models/shop.dart';
+import 'card_buttons.dart';
 
 class ShopTiles extends StatelessWidget {
   const ShopTiles({super.key, required this.shopItem, required this.onTap});
@@ -76,7 +76,7 @@ class ShopTiles extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Buttons(
+              CardButtons(
                 onTap: onTap,
                 padding: EdgeInsets.all(10),
                 child: Icon(

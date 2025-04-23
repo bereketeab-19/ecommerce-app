@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_shop/Models/shop.dart';
-import 'package:minimal_shop/Models/cart.dart';
-import 'package:minimal_shop/Widgets/cart_tiles.dart';
+import '../Models/shop.dart';
+import '../Models/cart.dart';
+import '../Widgets/cart_tiles.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {

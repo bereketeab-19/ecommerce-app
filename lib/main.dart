@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_shop/Screens/intro_screen.dart';
-import 'package:minimal_shop/Themes/theme_provider.dart';
-import 'package:minimal_shop/Themes/themes.dart';
-import 'package:minimal_shop/Models/cart.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+import 'package:minimal_shop/Screens/auth/auth_page.dart';
+import 'Themes/theme_provider.dart';
+import 'Themes/themes.dart';
+import 'Models/cart.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
       providers: [
@@ -24,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: IntroScreen(),
+      home: AuthPage(),
       theme: lightMode,
       darkTheme: darkMode,
       themeMode: Provider.of<ThemeProvider>(context).themeMode,

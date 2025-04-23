@@ -1,80 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_shop/Models/shop.dart';
-import 'package:minimal_shop/Screens/cart_screen.dart';
-import 'package:minimal_shop/Models/cart.dart';
-import 'package:minimal_shop/Widgets/drawer.dart';
-import 'package:minimal_shop/Widgets/shop_tiles.dart';
+import '../Models/shop.dart';
+import 'cart_screen.dart';
+import '../Models/cart.dart';
+import '../Widgets/drawer.dart';
+import '../Widgets/shop_tiles.dart';
 import 'package:provider/provider.dart';
 
 class ShopScreen extends StatelessWidget {
   const ShopScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    void addItemTocart(Shop shopItem) {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder:
-            (context) => AlertDialog(
-              backgroundColor: Theme.of(context).colorScheme.surface,
-              alignment: Alignment.center,
-              shape: RoundedRectangleBorder(),
-              content: Text(
-                'Are you sure you want to add this item to the cart?',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSecondary,
+  void addItemTocart(Shop shopItem, BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (context) => AlertDialog(
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            alignment: Alignment.center,
+            shape: RoundedRectangleBorder(),
+            content: Text(
+              'Are you sure you want to add this item to the cart?',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+            ),
+            actions: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  child: Text(
+                    'Cancle',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                  ),
                 ),
               ),
-              actions: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                    child: Text(
-                      'Cancle',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSecondary,
-                      ),
+              GestureDetector(
+                onTap: () {
+                  Provider.of<Cart>(
+                    context,
+                    listen: false,
+                  ).addshopItemToCart(shopItem, context);
+
+                  Navigator.of(context).pop();
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  child: Text(
+                    'Yes',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSecondary,
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Provider.of<Cart>(
-                      context,
-                      listen: false,
-                    ).addshopItemToCart(shopItem, context);
+              ),
+            ],
+          ),
+    );
+  }
 
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                    child: Text(
-                      'Yes',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSecondary,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-      );
-    }
-
+  @override
+  Widget build(BuildContext context) {
     return Consumer<Cart>(
       builder:
           (context, value, child) => Scaffold(
             backgroundColor: Theme.of(context).colorScheme.surface,
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               leading: Builder(
                 builder:
@@ -147,7 +148,7 @@ class ShopScreen extends StatelessWidget {
                       return ShopTiles(
                         shopItem: shopItem,
                         onTap: () {
-                          addItemTocart(shopItem);
+                          addItemTocart(shopItem, context);
                         },
                       );
                     },

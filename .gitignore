@@ -32,7 +32,12 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+*.apk
+*.ipa
 
+# Firebase SDK stuff
+*.lib
+*.zip
 # Symbolication related
 app.*.symbols
 

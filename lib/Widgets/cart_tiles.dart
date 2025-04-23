@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:minimal_shop/Models/shop.dart';
+import '../Models/shop.dart';
 
 class CartTiles extends StatelessWidget {
   const CartTiles({super.key, required this.shopItem, required this.onTap});
