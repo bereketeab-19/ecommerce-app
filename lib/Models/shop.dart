@@ -1,5 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
+import 'package:uuid/uuid.dart';
+
+var uuid = Uuid();
+final namespace = Uuid.NAMESPACE_URL;
 
 class Shop {
   String id;
@@ -8,12 +11,12 @@ class Shop {
   String imagePath;
   double price;
   Shop({
-    required this.id,
+    String? id,
     required this.title,
     required this.description,
     required this.imagePath,
     required this.price,
-  });
+  }) : id = id ?? uuid.v5(namespace, title).toString();
 
   Shop copyWith({
     String? title,
@@ -32,6 +35,7 @@ class Shop {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'title': title,
       'description': description,
       'imagePath': imagePath,
@@ -41,7 +45,7 @@ class Shop {
 
   factory Shop.fromMap(String id, Map<String, dynamic> map) {
     return Shop(
-      id: id,
+      id: map['id'] as String,
       title: map['title'] as String,
       description: map['description'] as String,
       imagePath: map['imagePath'] as String,

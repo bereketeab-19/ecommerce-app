@@ -8,28 +8,24 @@ class Cart extends ChangeNotifier {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   List<Shop> shopItems = [
     Shop(
-      id: '1',
       imagePath: 'assets/images/black_hoodie.png',
       title: 'PRODUCT 1',
       description: 'This is a premium black hoodie made with quality materials',
       price: 99.99,
     ),
     Shop(
-      id: '2',
       imagePath: 'assets/images/eye_glass.png',
       title: 'PRODUCT 2',
       description: 'A modern, sleek & minimal pair of glasses.',
       price: 99.99,
     ),
     Shop(
-      id: '3',
       imagePath: 'assets/images/watch.jpeg',
       title: 'PRODUCT 3',
       description: 'Item description...',
       price: 99.99,
     ),
     Shop(
-      id: '4',
       imagePath: 'assets/images/shoe.png',
       title: 'PRODUCT 4',
       description: 'Item description...',
