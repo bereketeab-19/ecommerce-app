@@ -139,21 +139,7 @@ class ShopScreen extends StatelessWidget {
                 ),
 
                 // horizontal shop tiles
-                Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: value.shopItems.length,
-                    itemBuilder: (context, index) {
-                      Shop shopItem = value.getshopItem()[index];
-                      return ShopTiles(
-                        shopItem: shopItem,
-                        onTap: () {
-                          addItemTocart(shopItem, context);
-                        },
-                      );
-                    },
-                  ),
-                ),
+                Expanded(child: shopListViewItems(value)),
                 SizedBox(height: 40),
                 // some text
                 Center(
@@ -169,6 +155,22 @@ class ShopScreen extends StatelessWidget {
               ],
             ),
           ),
+    );
+  }
+
+  ListView shopListViewItems(Cart value) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: value.shopItems.length,
+      itemBuilder: (context, index) {
+        Shop shopItem = value.getshopItem()[index];
+        return ShopTiles(
+          shopItem: shopItem,
+          onTap: () {
+            addItemTocart(shopItem, context);
+          },
+        );
+      },
     );
   }
 }

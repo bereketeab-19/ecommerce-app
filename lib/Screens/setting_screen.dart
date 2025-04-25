@@ -68,12 +68,6 @@ class SettingScreen extends StatelessWidget {
                       themeProvider.changeThemeMode();
                     },
                   ),
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     themeProvider.setThemeMode(ThemeMode.system);
-                  //   },
-                  //   child: Text("default"),
-                  // ),
                 ],
               ),
             ),

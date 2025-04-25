@@ -143,92 +143,98 @@ class CartScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   Expanded(
-                    child: FutureBuilder<List<Shop>>(
-                      future: value.fetchCartItems(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Center(
-                            child: Text(
-                              'Error loading cart items',
-                              style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
-                              ),
-                            ),
-                          );
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.isEmpty) {
-                          return Center(
-                            child: Text(
-                              'Your cart is empty',
-                              style: TextStyle(
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
-                              ),
-                            ),
-                          );
-                        } else {
-                          final cartItems = snapshot.data!;
-                          return Column(
-                            children: [
-                              Expanded(
-                                child: ListView.builder(
-                                  itemCount: cartItems.length,
-                                  itemBuilder: (context, index) {
-                                    final Shop shopItem = cartItems[index];
-                                    return CartTiles(
-                                      shopItem: shopItem,
-                                      onTap: () {
-                                        removetemfromcart(shopItem);
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                              Visibility(
-                                visible: cartItems.isNotEmpty,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    payButtonPressed();
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    margin: EdgeInsets.only(
-                                      left: 30,
-                                      bottom: 35,
-                                      right: 30,
-                                      top: 15,
-                                    ),
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 20,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      border: Border.all(color: Colors.white),
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    child: Text(
-                                      'PAY NOW',
-                                      style: TextStyle(letterSpacing: 5),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        }
-                      },
+                    child: loadCartItems(
+                      value,
+                      removetemfromcart,
+                      payButtonPressed,
                     ),
                   ),
                 ],
               ),
             ),
           ),
+    );
+  }
+
+  FutureBuilder<List<Shop>> loadCartItems(
+    Cart value,
+    void Function(Shop shopItem) removetemfromcart,
+    void Function() payButtonPressed,
+  ) {
+    return FutureBuilder<List<Shop>>(
+      future: value.fetchCartItems(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text(
+              'Error loading cart items',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+            ),
+          );
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(
+            child: Text(
+              'Your cart is empty',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+            ),
+          );
+        } else {
+          final cartItems = snapshot.data!;
+          return Column(
+            children: [
+              Expanded(child: buildCartItemsList(cartItems, removetemfromcart)),
+              Visibility(
+                visible: cartItems.isNotEmpty,
+                child: GestureDetector(
+                  onTap: () {
+                    payButtonPressed();
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(
+                      left: 30,
+                      bottom: 35,
+                      right: 30,
+                      top: 15,
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text('PAY NOW', style: TextStyle(letterSpacing: 5)),
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+      },
+    );
+  }
+
+  ListView buildCartItemsList(
+    List<Shop> cartItems,
+    void Function(Shop shopItem) removetemfromcart,
+  ) {
+    return ListView.builder(
+      itemCount: cartItems.length,
+      itemBuilder: (context, index) {
+        final Shop shopItem = cartItems[index];
+        return CartTiles(
+          shopItem: shopItem,
+          onTap: () {
+            removetemfromcart(shopItem);
+          },
+        );
+      },
     );
   }
 }

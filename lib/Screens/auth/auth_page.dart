@@ -9,21 +9,23 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    return Scaffold(
-      body: StreamBuilder<User?>(
-        stream: firebaseAuth.authStateChanges(),
-        builder: (context, snapshot) {
-          //has data
-          if (snapshot.hasData) {
-            return ShopScreen();
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            return LoginOrRegisterPage();
-          }
-        },
-      ),
+    return Scaffold(body: checkAuthStateChangs(firebaseAuth));
+  }
+
+  StreamBuilder<User?> checkAuthStateChangs(FirebaseAuth firebaseAuth) {
+    return StreamBuilder<User?>(
+      stream: firebaseAuth.authStateChanges(),
+      builder: (context, snapshot) {
+        //has data
+        if (snapshot.hasData) {
+          return ShopScreen();
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return LoginOrRegisterPage();
+        }
+      },
     );
   }
 }
